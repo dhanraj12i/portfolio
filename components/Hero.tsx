@@ -7,7 +7,6 @@ import { Button } from "./ui/button";
 
 import Socials from "./Socials";
 import DevImg from "./DevImg";
-import { Toast } from "./ui/toast";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 

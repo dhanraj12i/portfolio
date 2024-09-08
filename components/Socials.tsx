@@ -1,4 +1,5 @@
 "use client";
+
 import {
   RiLinkedinBoxFill,
   RiGithubFill,
@@ -26,6 +27,7 @@ const Socials: React.FC<SocialsProps> = ({ containerStyles, iconsStyles }) => {
       name: <RiInstagramFill />,
     },
   ];
+
   return (
     <div className={`${containerStyles}`}>
       {icons.map((icon) => (

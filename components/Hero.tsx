@@ -1,14 +1,8 @@
 "use client";
 import Link from "next/link";
 import { Download, Send } from "lucide-react";
-// import Badge from "./Badge";
 
-import {
-  // RiBriefcase4Fill,
-  // RiTeamFill,
-  // RiTodoFill,
-  RiArrowDownSLine,
-} from "react-icons/ri";
+import { RiArrowDownSLine } from "react-icons/ri";
 import { Button } from "./ui/button";
 import Socials from "./Socials";
 import DevImg from "./DevImg";
@@ -45,8 +39,8 @@ const Hero = () => {
           <div className="hidden xl:flex relative">
             <div className="bg-hero_shape2_light dark:bg-hero_shape2_dark w-[500px] h-[500px] bg-no-repeat absolute-top-1 -right-2"></div>
             <DevImg
-              containerStyles="bg-hero_shape w-[510px] h-[462px] bg-no-repeat absolute bg-bottom"
-              imgSrc="/hero/self.png"
+              containerStyles="bg-hero_shape1_dark dark:bg-hero_shape1_dark w-[510px] h-[462px] bg-no-repeat absolute bg-bottom flex justify-center items-center -left-4"
+              imgSrc="/hero/homePic.png"
             />
           </div>
         </div>

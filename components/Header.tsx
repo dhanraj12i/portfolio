@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-import Logo from "./Logo";
-import ThemeToggler from "@/components/shared/ThemeToggler";
 import Nav from "./Nav";
+import Logo from "./Logo";
 import MobileNav from "./MobileNav";
+import ThemeToggler from "@/components/shared/ThemeToggler";
 
 const Header = () => {
   const [header, setHeader] = useState(false);
@@ -25,7 +25,7 @@ const Header = () => {
       className={`${
         header
           ? "py-4 bg-white shadow-lg dark:bg-accent"
-          : "py-6 dark:bg-transparent"
+          : "py-6 dark:bg-[#121212]"
       } sticky top-0 z-30 transition-all ${pathName === "/" && "bg-[#fef9f5]"}`}
     >
       <div className="container">

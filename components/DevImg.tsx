@@ -8,7 +8,7 @@ type SocialsProps = {
 const DevImg: React.FC<SocialsProps> = ({ containerStyles, imgSrc }) => {
   return (
     <div className={`${containerStyles}`}>
-      <Image src={imgSrc} fill priority alt="Profile Pic" />
+      <Image src={imgSrc} priority alt="Profile Pic" width="300" height="300" />
     </div>
   );
 };

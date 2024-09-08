@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { Download, Send } from "lucide-react";
 
@@ -18,8 +19,8 @@ const Hero = () => {
             </div>
             <h1 className="heading-h1 mb-4">Hello, I am Dhanraj Patil</h1>
             <p className="subtitle max-w-[490px] mx-auto xl:mx-0">
-              Brief description with insights into myself, my vocation journey
-              and what I engage in professionally.
+              This Website contains brief description with insights into myself,
+              my vocation journey and what I engage in professionally.
             </p>
             <div className="flex flex-col gap-y-3 md:flex-row gap-x-3 mx-auto xl:mx-0 mb-12">
               <Link href="/contact">

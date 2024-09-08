@@ -9,7 +9,11 @@ const config: Config = {
   ],
   theme: {
     container: {
+      center: true,
       padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
     },
     extend: {
       colors: {
@@ -30,6 +34,9 @@ const config: Config = {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        teritiary: {
+          DEFAULT: "hsl(var(--teritiary))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -60,7 +67,10 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       backgroundImage: {
-        hero: "url(/hero/hero-bg.png",
+        hero: "url(/hero/hero-bg.png)",
+        hero_shape: "url(/hero/shape-1.svg)",
+        hero_shape2_light: "url(/hero/shape-2-light.svg)",
+        hero_shape2_dark: "url(/hero/shape-2-dark.svg)",
       },
     },
   },

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -24,6 +25,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light">
           <Header />
           {children}
+          <Toaster />
           <Footer />
         </ThemeProvider>
       </body>

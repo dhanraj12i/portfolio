@@ -9,6 +9,7 @@ import Socials from "./Socials";
 import DevImg from "./DevImg";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+// import useLinkedInData from "@/hooks/useLinkedInData";
 
 const Hero = () => {
   const { toast } = useToast();
@@ -39,7 +40,6 @@ const Hero = () => {
         console.error("Error fetching the base64 PDF:", error);
       });
   };
-
   return (
     <section className="py-12 xl:py-12 h-[94vh] xl:pt-18 bg-hero bg-no-repeat bg-bottom bg-cover dark:bg-none">
       <div className="container mx-auto">
@@ -75,11 +75,12 @@ const Hero = () => {
           <div className="hidden xl:flex relative">
             <div className="bg-hero_shape2_light dark:bg-hero_shape2_dark w-[500px] h-[500px] bg-no-repeat absolute-top-1 -right-2"></div>
             <DevImg
-              containerStyles="bg-hero_shape1_dark dark:bg-hero_shape1_dark w-[510px] h-[462px] bg-no-repeat absolute bg-bottom flex justify-center items-center -left-4"
+              containerStyles="bg-hero_shape1_dark dark:bg-hero_shape1_dark w-[510px] h-[462px] bg-no-repeat absolute bg-bottom flex justify-center items-center"
               imgSrc="/hero/homePic.png"
             />
           </div>
         </div>
+
         <div className="hidden md:flex absolute left-2/4 bottom-44 xl:bottom-12 animate-bounce">
           <RiArrowDownSLine className="text-3xl text-primary" />
         </div>

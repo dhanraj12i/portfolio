@@ -6,6 +6,9 @@ import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/shared/ThemeProvider";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { HoverCard } from "@/components/ui/hover-card";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,12 +25,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light">
-          <Header />
-          {children}
-          <Toaster />
-          <Footer />
-        </ThemeProvider>
+        <HoverCard>
+          <TooltipProvider delayDuration={100}>
+            <ThemeProvider attribute="class" defaultTheme="light">
+              <Header />
+              {children}
+              <Toaster />
+              <Footer />
+            </ThemeProvider>
+          </TooltipProvider>
+        </HoverCard>
+        <Script src="https://platform.linkedin.com/badges/js/profile.js" />
       </body>
     </html>
   );

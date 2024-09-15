@@ -12,7 +12,6 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { ReactElement, useEffect } from "react";
-import useLinkedInData from "@/hooks/useLinkedInData";
 import { useTheme } from "next-themes";
 
 type SocialsProps = {
@@ -21,12 +20,7 @@ type SocialsProps = {
 };
 
 const Socials: React.FC<SocialsProps> = ({ containerStyles, iconsStyles }) => {
-  const { data } = useLinkedInData(); // Pass the ref to the custom hook
   const { theme } = useTheme();
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   const createScript = () => {
     const script = document.createElement("script");
@@ -70,23 +64,24 @@ const Socials: React.FC<SocialsProps> = ({ containerStyles, iconsStyles }) => {
                   <div className={`${iconsStyles}`}>{icon.name}</div>
                 </Link>
               </HoverCardTrigger>
-              {icon.desc ==='LinkedIn' &&
-              <HoverCardContent className="w-100">
-                <div
-                  className="badge-base LI-profile-badge"
-                  data-locale="en_US"
-                  data-size="large"
-                  data-theme={theme === "light" ? "light" : "dark"}
-                  data-type="HORIZONTAL"
-                  data-vanity="dhanrajpatil1220"
-                  data-version="v1"
-                >
-                  <a
-                    className="badge-base__link LI-simple-link"
-                    href="https://in.linkedin.com/in/dhanrajpatil1220?trk=profile-badge"
-                  ></a>
-                </div>
-              </HoverCardContent>}
+              {icon.desc === "LinkedIn" && (
+                <HoverCardContent className="w-100">
+                  <div
+                    className="badge-base LI-profile-badge"
+                    data-locale="en_US"
+                    data-size="large"
+                    data-theme={theme === "light" ? "light" : "dark"}
+                    data-type="HORIZONTAL"
+                    data-vanity="dhanrajpatil1220"
+                    data-version="v1"
+                  >
+                    <a
+                      className="badge-base__link LI-simple-link"
+                      href="https://in.linkedin.com/in/dhanrajpatil1220?trk=profile-badge"
+                    ></a>
+                  </div>
+                </HoverCardContent>
+              )}
             </HoverCard>
           </div>
         )

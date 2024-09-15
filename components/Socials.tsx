@@ -11,7 +11,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import { useTheme } from "next-themes";
 
 type SocialsProps = {

@@ -11,90 +11,86 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-// import useLinkedInData from "@/hooks/useLinkedInData";
+import { ReactElement, useEffect } from "react";
+import useLinkedInData from "@/hooks/useLinkedInData";
+import { useTheme } from "next-themes";
 
-interface LinkedInData {
-  img: string;
-  name: string;
-  title: string;
-  info: string;
-}
 type SocialsProps = {
   containerStyles: string;
   iconsStyles?: string;
 };
 
 const Socials: React.FC<SocialsProps> = ({ containerStyles, iconsStyles }) => {
-  // const linkedInData = useLinkedInData();
-  const linkedInData = {} as LinkedInData;
-  console.log(linkedInData);
+  const { data } = useLinkedInData(); // Pass the ref to the custom hook
+  const { theme } = useTheme();
 
-  const fetchData = () => {
-    const data = fetch(
-      " https://api.linkedin.com/v1/people/id=dhanrajpatil1220"
-    );
+  useEffect(() => {
     console.log(data);
-    return data;
-  };
+  }, [data]);
 
-  fetchData();
+  const createScript = () => {
+    const script = document.createElement("script");
+    script.src = "https://platform.linkedin.com/badges/js/profile.js";
+    document.head.appendChild(script);
+  };
   const icons = [
     {
       path: "https://www.linkedin.com/in/dhanrajpatil1220/",
       name: <RiLinkedinBoxFill />,
-      Desc: "LinkedIn",
+      desc: "LinkedIn",
     },
     {
       path: "https://github.com/dhanraj12i",
       name: <RiGithubFill />,
-      Desc: "GitHub",
+      desc: "GitHub",
     },
     {
       path: "/instagram",
       name: <RiInstagramFill />,
-      Desc: "Instagram",
+      desc: "Instagram",
     },
   ];
 
   return (
     <div className={`${containerStyles}`}>
-      {icons.map((icon: any, index: number) => (
-        <div key={index}>
-          <HoverCard>
-            <HoverCardTrigger asChild>
-              <Link
-                href={icon.path}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={icon.Desc}
-              >
-                <div className={`${iconsStyles}`}>{icon.name}</div>
-              </Link>
-            </HoverCardTrigger>
-            {icon.Desc === "LinkedIn" && (
-              <HoverCardContent className="w-80">
-                <div className="flex items-center space-x-4">
-                  {/* Display LinkedIn profile image */}
-                  <img
-                    src={linkedInData?.img}
-                    alt="Profile"
-                    className="h-12 w-12 rounded-full"
-                  />
-                  <div>
-                    <h4 className="text-sm font-semibold">
-                      {linkedInData?.name}
-                    </h4>
-                    <p className="text-sm">{linkedInData?.title}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {linkedInData?.info}
-                    </p>
-                  </div>
+      {icons.map(
+        (
+          icon: { path: string; name: ReactElement; desc: string },
+          index: number
+        ) => (
+          <div key={index + icon.desc}>
+            <HoverCard onOpenChange={createScript}>
+              <HoverCardTrigger asChild>
+                <Link
+                  href={icon.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  key={icon.desc}
+                >
+                  <div className={`${iconsStyles}`}>{icon.name}</div>
+                </Link>
+              </HoverCardTrigger>
+              {icon.desc ==='LinkedIn' &&
+              <HoverCardContent className="w-100">
+                <div
+                  className="badge-base LI-profile-badge"
+                  data-locale="en_US"
+                  data-size="large"
+                  data-theme={theme === "light" ? "light" : "dark"}
+                  data-type="HORIZONTAL"
+                  data-vanity="dhanrajpatil1220"
+                  data-version="v1"
+                >
+                  <a
+                    className="badge-base__link LI-simple-link"
+                    href="https://in.linkedin.com/in/dhanrajpatil1220?trk=profile-badge"
+                  ></a>
                 </div>
-              </HoverCardContent>
-            )}
-          </HoverCard>
-        </div>
-      ))}
+              </HoverCardContent>}
+            </HoverCard>
+          </div>
+        )
+      )}
     </div>
   );
 };

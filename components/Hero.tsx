@@ -86,8 +86,7 @@ const Hero = () => {
           </div>
         </div>
       </section>
-
-      {/* Pass the open state and a handler to close the dialog */}
+      
       <ProfileDialog open={open} onOpenChange={setOpen} />
     </>
   );

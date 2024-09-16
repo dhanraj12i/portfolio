@@ -25,6 +25,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+     <head>
+      {(process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "preview") && (
+        // eslint-disable-next-line @next/next/no-sync-scripts
+        <script
+          data-recording-token="5gjpRhZBb9tf6vPgqzdMaOxXz3b8ZXYGNAvi6fGL"
+          data-is-production-environment="false"
+          src="https://snippet.meticulous.ai/v1/meticulous.js"
+        />
+      )}
+      </head>
+
       <body className={inter.className}>
         <HoverCard>
           <TooltipProvider delayDuration={100}>

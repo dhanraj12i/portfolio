@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const LinkedInProfile: React.FC = () => {
-  const [htmlData, setHtmlData] = useState<string>('');  // State to store the fetched HTML
+  const [htmlData, setHtmlData] = useState<string>('');  
 
   useEffect(() => {
     // Fetch the LinkedIn page content from the Next.js API route

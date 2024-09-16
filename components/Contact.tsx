@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { endpoints } from "@/config/api";
 
 interface ProfileDialogProps {
   open: boolean;
@@ -29,9 +30,7 @@ export const ProfileDialog: React.FC<ProfileDialogProps> = ({
 
   const sendTestEmail = async () => {
     try {
-      console.log("API Key:", process);
-
-      const response = await fetch("http://localhost:3000/api/sendMail", {
+      const response = await fetch(`${endpoints.notifyAdmin}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

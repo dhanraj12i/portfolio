@@ -18,15 +18,19 @@ import { endpoints } from "@/config/api";
 interface ProfileDialogProps {
   open: boolean;
   onOpenChange: (isOpen: boolean) => void;
+  button: string;
+  downloadCV: () => void;
 }
 
 export const ProfileDialog: React.FC<ProfileDialogProps> = ({
   open,
   onOpenChange,
+  downloadCV,
+  button,
 }) => {
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
-  const [subject, setSubject] = useState("Job Role");
+  const [subject, setSubject] = useState("Resume Downloaded");
 
   const sendTestEmail = async () => {
     try {
@@ -72,7 +76,18 @@ export const ProfileDialog: React.FC<ProfileDialogProps> = ({
             {` Please fill out the form, and I'll get back to you shortly!`}
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={
+            button === "cv"
+              ? (e) => {
+                  downloadCV();
+                  handleSubmit(e);
+                }
+              : (e) => {
+                  handleSubmit(e);
+                }
+          }
+        >
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="email" className="text-right">
@@ -87,35 +102,39 @@ export const ProfileDialog: React.FC<ProfileDialogProps> = ({
                 className="col-span-3"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="subject" className="text-right">
-                Subject
-              </Label>
-              <select
-                id="subject"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                className="col-span-3 p-2 border rounded"
-              >
-                <option value="Job Role">Job Role</option>
-                <option value="Project Collaboration">
-                  Project Collaboration
-                </option>
-                <option value="General Inquiry">General Inquiry</option>
-              </select>
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="description" className="text-right">
-                Description
-              </Label>
-              <Textarea
-                id="description"
-                required
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="col-span-3"
-              />
-            </div>
+            {button !== "cv" && (
+              <>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="subject" className="text-right">
+                    Subject
+                  </Label>
+                  <select
+                    id="subject"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                    className="col-span-3 p-2 border rounded"
+                  >
+                    <option value="Job Role">Job Role</option>
+                    <option value="Project Collaboration">
+                      Project Collaboration
+                    </option>
+                    <option value="General Inquiry">General Inquiry</option>
+                  </select>
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="description" className="text-right">
+                    Description
+                  </Label>
+                  <Textarea
+                    id="description"
+                    required
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="col-span-3"
+                  />
+                </div>
+              </>
+            )}
           </div>
           <DialogFooter>
             <Button type="submit">Submit</Button>

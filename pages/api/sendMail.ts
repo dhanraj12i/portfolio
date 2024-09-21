@@ -14,11 +14,11 @@ const sendMail = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { email, subject, description } = req.body;
 
-    if (!email || !subject || !description) {
-      return res.status(400).json({
-        error: "Missing required fields: email, subject, or description.",
-      });
-    }
+    // if (!email || !subject || !description) {
+    //   return res.status(400).json({
+    //     error: "Missing required fields: email, subject, or description.",
+    //   });
+    // }
 
     // Create the email content
     const emailContent = `<div>
@@ -31,7 +31,7 @@ const sendMail = async (req: NextApiRequest, res: NextApiResponse) => {
     const response = await resend.emails.send({
       from: "Acme <onboarding@resend.dev>",
       to: ["dhanraj12061998@gmail.com"], // Replace with the recipient's email
-      subject: subject || "Hello world",
+      subject: subject || "Resume Downloaded",
       html: emailContent,
       tags: [
         {

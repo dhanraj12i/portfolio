@@ -39,7 +39,7 @@ const Socials: React.FC<SocialsProps> = ({ containerStyles, iconsStyles }) => {
       desc: "GitHub",
     },
     {
-      path: "/instagram",
+      path: "https://www.instagram.com/idhanraj?igsh=bHlwdThja2R1Z3Rj",
       name: <RiInstagramFill />,
       desc: "Instagram",
     },

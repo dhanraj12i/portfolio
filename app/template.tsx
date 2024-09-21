@@ -21,7 +21,7 @@ const Template: React.FC<TemplateProps> = ({ children }) => {
         variants={variants}
         initial="hidden"
         animate="enter"
-        transition={{ type: "linear", delay: 0.2, duration: 0.4 }}
+        transition={{ type: "linear", delay: 0.1, duration: 0.4 }}
       >
         {children}
       </motion.main>

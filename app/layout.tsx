@@ -8,7 +8,6 @@ import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/shared/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { HoverCard } from "@/components/ui/hover-card";
-import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -48,7 +47,7 @@ export default function RootLayout({
             </ThemeProvider>
           </TooltipProvider>
         </HoverCard>
-        <Script src="https://platform.linkedin.com/badges/js/profile.js" />
+        {/* <Script src="https://platform.linkedin.com/badges/js/profile.js" /> */}
       </body>
     </html>
   );

@@ -9,12 +9,28 @@ import { ProfileDialog } from "./Contact";
 import { Download, Send } from "lucide-react";
 import { RiArrowDownSLine, RiBriefcase4Fill } from "react-icons/ri";
 import Badge from "./Badge";
+import { motion } from "framer-motion";
+
+interface ContainerProps {
+  delay: number;
+  isMobile: boolean;
+}
+
+const container = ({ delay, isMobile }: ContainerProps) => ({
+  hidden: { x: isMobile ? 0 : -100, y: isMobile ? -100 : 0, opacity: 0 },
+  visible: {
+    x: 0,
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5, delay: delay },
+  },
+});
 
 const Hero = () => {
+  const isMobile = window.innerWidth <= 1267;
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [btn, setBtn] = useState("");
-
   const downloadCV = () => {
     fetch("/cv_base64.txt")
       .then((response) => response.text())
@@ -53,18 +69,39 @@ const Hero = () => {
 
   return (
     <>
-      <section className="py-12 xl:py-12 h-[94vh] xl:pt-18 bg-hero bg-no-repeat bg-bottom bg-cover dark:bg-none">
+      <section className="py-12 xl:py-12 h-[100vh] xl:pt-18 bg-hero bg-no-repeat bg-bottom bg-cover dark:bg-none">
         <div className="container mx-auto">
           <div className="flex justify-between gap-x-8">
-            <div className="flex max-w-[600px] flex-col justify-center mx-auto xl:mx-0 text-center xl:text-left">
-              <div className="text-sm uppercase font-semibold mb-4 ml-1 text-primary tracking-[4px]">
-                Web Developer
-              </div>
-              <h1 className="heading-h1 mb-4">Hello, I am Dhanraj Patil</h1>
-              <p className="subtitle max-w-[490px] mx-auto xl:mx-0">
+            <div className="flex max-w-[600px] flex-col justify-center mx-auto xl:mx-0 text-center xl:text-left relative">
+              <motion.div
+                variants={container({ delay: 0, isMobile })}
+                initial="hidden"
+                animate="visible"
+                // whileHover={{ scale: 1.2 }}
+                // whileTap={{ scale: 1.1 }}
+                // drag="x"
+                // dragConstraints={{ left: -10, right: 100 }}
+                className="text-sm uppercase font-semibold mb-4 ml-1 text-primary tracking-[4px]"
+              >
+                {"Web Developer"}
+              </motion.div>
+              <motion.h1
+                variants={container({ delay: 0.5, isMobile })}
+                initial="hidden"
+                animate="visible"
+                className="heading-h1 mb-4"
+              >
+                {"Hi, I am Dhanraj"}
+              </motion.h1>
+              <motion.p
+                variants={container({ delay: 1, isMobile })}
+                initial="hidden"
+                animate="visible"
+                className="subtitle max-w-[490px] mx-auto xl:mx-0"
+              >
                 This Website contains brief description with insights into
                 myself, my vocation journey and what I engage in professionally.
-              </p>
+              </motion.p>
               <div className="flex flex-col gap-y-3 md:flex-row gap-x-3 mx-auto xl:mx-0 mb-12">
                 <Button
                   className="gap-x-2"
@@ -89,10 +126,10 @@ const Hero = () => {
               </div>
               <Socials
                 containerStyles="flex gap-x-6 mx-auto xl:mx-0"
-                iconsStyles="text-foreground text-[22px] hover:text-primary transition-all"
+                iconsStyles="text-foreground text-[28px] hover:text-primary transition-all"
               />
             </div>
-            <div className="hidden xl:flex relative">
+            <motion.div className="hidden xl:flex relative">
               <Badge
                 icon={<RiBriefcase4Fill />}
                 endCountNum={endCountNum()}
@@ -114,15 +151,21 @@ const Hero = () => {
                 badgeText="Finished Projects"
                 containerStyles="absolute top-[55%] -right-8"
               /> */}
-              <div className="bg-hero_shape2_light dark:bg-hero_shape2_dark w-[500px] h-[500px] bg-no-repeat absolute-top-1 -right-2"></div>
-              <DevImg
-                containerStyles="bg-hero_shape1_dark dark:bg-hero_shape1_dark w-[510px] h-[462px] bg-no-repeat absolute bg-bottom flex justify-center items-center"
-                imgSrc="/hero/homePic.png"
-              />
-            </div>
+              <motion.div
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 1.2 }}
+                className="xl:flex"
+              >
+                <div className="bg-hero_shape2_light dark:bg-hero_shape2_dark w-[500px] h-[500px] bg-no-repeat absolute-top-1 -right-2"></div>
+                <DevImg
+                  containerStyles="bg-hero_shape1_dark dark:bg-hero_shape1_dark w-[510px] h-[462px] bg-no-repeat absolute bg-bottom flex justify-center items-center"
+                  imgSrc="/hero/homePic.png"
+                />
+              </motion.div>
+            </motion.div>
           </div>
-
-          <div className="hidden md:flex absolute left-2/4 bottom-44 xl:bottom-12 animate-bounce">
+          <div className="hidden md:flex absolute left-2/4 bottom-2 xl:bottom-12 animate-bounce">
             <RiArrowDownSLine className="text-3xl text-primary" />
           </div>
         </div>

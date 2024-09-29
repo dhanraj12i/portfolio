@@ -56,7 +56,13 @@ export const ProfileDialog: React.FC<ProfileDialogProps> = ({
       } else {
         console.error("Error sending email:", data);
       }
+      setSubject("");
+      setDescription("");
+      setEmail("");
     } catch (error) {
+      setSubject("");
+      setDescription("");
+      setEmail("");
       console.error("Unexpected error:", error);
     }
   };

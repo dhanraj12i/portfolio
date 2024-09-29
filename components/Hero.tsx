@@ -4,7 +4,7 @@ import Socials from "./Socials";
 import DevImg from "./DevImg";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProfileDialog } from "./Contact";
 import { Download, Send } from "lucide-react";
 import { RiArrowDownSLine, RiBriefcase4Fill } from "react-icons/ri";
@@ -27,10 +27,31 @@ const container = ({ delay, isMobile }: ContainerProps) => ({
 });
 
 const Hero = () => {
-  const isMobile = window.innerWidth <= 1267;
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [btn, setBtn] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Create a media query list using matchMedia
+      const mediaQuery = window.matchMedia("(max-width: 1267px)");
+
+      // Set the initial state based on the query
+      setIsMobile(mediaQuery.matches);
+
+      // Add a listener to handle changes in screen size
+      const handleResize = (event: MediaQueryListEvent) => {
+        setIsMobile(event.matches);
+      };
+
+      mediaQuery.addEventListener("change", handleResize);
+
+      // Cleanup the event listener on unmount
+      return () => mediaQuery.removeEventListener("change", handleResize);
+    }
+  }, []);
+
   const downloadCV = () => {
     fetch("/cv_base64.txt")
       .then((response) => response.text())
@@ -77,10 +98,6 @@ const Hero = () => {
                 variants={container({ delay: 0, isMobile })}
                 initial="hidden"
                 animate="visible"
-                // whileHover={{ scale: 1.2 }}
-                // whileTap={{ scale: 1.1 }}
-                // drag="x"
-                // dragConstraints={{ left: -10, right: 100 }}
                 className="text-sm uppercase font-semibold mb-4 ml-1 text-primary tracking-[4px]"
               >
                 {"Web Developer"}

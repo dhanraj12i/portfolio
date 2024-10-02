@@ -34,20 +34,16 @@ const Hero = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Create a media query list using matchMedia
       const mediaQuery = window.matchMedia("(max-width: 1267px)");
 
-      // Set the initial state based on the query
       setIsMobile(mediaQuery.matches);
 
-      // Add a listener to handle changes in screen size
       const handleResize = (event: MediaQueryListEvent) => {
         setIsMobile(event.matches);
       };
 
       mediaQuery.addEventListener("change", handleResize);
 
-      // Cleanup the event listener on unmount
       return () => mediaQuery.removeEventListener("change", handleResize);
     }
   }, []);
@@ -111,7 +107,14 @@ const Hero = () => {
                 {"Hi, I am Dhanraj"}
               </motion.h1>
               <motion.p
-                variants={container({ delay: 1, isMobile })}
+                variants={{
+                  ...container({ delay: 1, isMobile }),
+                  hidden: {
+                    x: 0,
+                    y: 100,
+                    opacity: 0,
+                  },
+                }}
                 initial="hidden"
                 animate="visible"
                 className="subtitle max-w-[490px] mx-auto xl:mx-0"
@@ -144,6 +147,7 @@ const Hero = () => {
               <Socials
                 containerStyles="flex gap-x-6 mx-auto xl:mx-0"
                 iconsStyles="text-foreground text-[28px] hover:text-primary transition-all"
+                isAnimate={true}
               />
             </div>
             <motion.div className="hidden xl:flex relative">
@@ -171,7 +175,7 @@ const Hero = () => {
               <motion.div
                 initial={{ x: 100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 1.2 }}
+                transition={{ duration: 1, delay: 0.5 }}
                 className="xl:flex"
               >
                 <div className="bg-hero_shape2_light dark:bg-hero_shape2_dark w-[500px] h-[500px] bg-no-repeat absolute-top-1 -right-2"></div>

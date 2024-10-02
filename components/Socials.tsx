@@ -18,9 +18,14 @@ import { motion, useAnimation } from "framer-motion";
 type SocialsProps = {
   containerStyles: string;
   iconsStyles?: string;
+  isAnimate?: boolean;
 };
 
-const Socials: React.FC<SocialsProps> = ({ containerStyles, iconsStyles }) => {
+const Socials: React.FC<SocialsProps> = ({
+  containerStyles,
+  iconsStyles,
+  isAnimate = false,
+}) => {
   const { theme } = useTheme();
   const [centerX, setCenterX] = useState(0); // State to track the dynamic center X
   const instaAnimate = useAnimation();
@@ -80,90 +85,97 @@ const Socials: React.FC<SocialsProps> = ({ containerStyles, iconsStyles }) => {
         icons.forEach((item, index) => {
           setTimeout(async () => {
             // First animation sequence
-            await item.control.start({
-              y: [-500, 0, -250, 0, -70, 0],
-              x: centerX,
-              rotate: -720,
-              transition: {
-                duration: 3 + index,
-                ease: "easeInOut",
-              },
-            });
+            // await item.control.start({
+            //   y: [-500, 0, -250, 0, -70, 0],
+            //   x: centerX,
+            //   rotate: -720,
+            //   transition: {
+            //     duration: 3 + index,
+            //     ease: "easeInOut",
+            //   },
+            // });
 
-            // Second animation sequence
             await item.control.start({
-              x: [centerX, 500, 400, 300, 200, 100, 0],
-              rotate: -1440,
+              x: [200, 100, 50, 0],
+              opacity: [0, 0.05, 0.1, 0.2, 0.8, 1],
+              rotateZ: -1440,
               transition: {
-                type: "spring",
-                stiffness: 10,
-                damping: 4 + index,
-                ease: "easeOut",
+                type: "just",
+                stiffness: 2,
+                damping: 4,
+                ease: "easeIn",
               },
             });
-          }, index * 1000); // 1 second delay for each icon
+          }, index * 1000);
         });
       }
     };
 
-    animateIcons(); // Call the function
-  }, [centerX, icons]); // Dependency arrayep the dependencies stable// Ensure controlsArray is included in the dependency array
+    isAnimate && animateIcons();
+  }, [centerX, icons, isAnimate]);
 
   return (
-    <div
-      className={`${containerStyles}`}
-      style={{
-        display: "flex",
-        gap: "50px",
-      }}
-    >
-      {icons.map((icon, index) => (
-        <div key={index + icon.desc}>
-          <HoverCard onOpenChange={createScript}>
-            <HoverCardTrigger asChild>
-              <motion.div
-                animate={icon.control} // Individual control per icon
-                initial={{ x: centerX, y: -500 }} // Start from top-center
-                style={{
-                  position: "absolute",
-                  overflow: "hidden",
-                  display: "flex",
-                  gap: "10px",
-                }}
-              >
-                <Link
-                  href={icon.path}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  key={icon.desc}
-                >
-                  <div className={`${iconsStyles}`}>{icon.name}</div>
-                </Link>
-              </motion.div>
-            </HoverCardTrigger>
-            {icon.desc === "LinkedIn" && (
-              <HoverCardContent className="w-100">
-                <div
-                  className="badge-base LI-profile-badge"
-                  data-locale="en_US"
-                  data-size="large"
-                  data-theme={theme === "light" ? "light" : "dark"}
-                  data-type="HORIZONTAL"
-                  data-vanity="dhanrajpatil1220"
-                  data-version="v1"
-                >
-                  <a
-                    className="badge-base__link LI-simple-link"
-                    href="https://in.linkedin.com/in/dhanrajpatil1220?trk=profile-badge"
-                    aria-label="Visit Dhanraj Patil's LinkedIn profile"
-                  ></a>
-                </div>
-              </HoverCardContent>
-            )}
-          </HoverCard>
+    <>
+      {centerX && (
+        <div
+          className={`${containerStyles}`}
+          style={{
+            display: "flex",
+            gap: "50px",
+          }}
+        >
+          {icons.map((icon, index) => (
+            <div key={index + icon.desc}>
+              <HoverCard onOpenChange={createScript}>
+                <HoverCardTrigger asChild>
+                  <motion.div
+                    animate={icon.control}
+                    initial={{
+                      ...(isAnimate ? { x: centerX, y: 0 } : { x: 0, y: 0 }),
+                      opacity: 0,
+                    }}
+                    style={{
+                      position: "absolute",
+                      overflow: "hidden",
+                      display: "flex",
+                      gap: "10px",
+                    }}
+                  >
+                    <Link
+                      href={icon.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      key={icon.desc}
+                    >
+                      <div className={`${iconsStyles}`}>{icon.name}</div>
+                    </Link>
+                  </motion.div>
+                </HoverCardTrigger>
+                {icon.desc === "LinkedIn" && (
+                  <HoverCardContent className="w-100">
+                    <div
+                      className="badge-base LI-profile-badge"
+                      data-locale="en_US"
+                      data-size="large"
+                      data-theme={theme === "light" ? "light" : "dark"}
+                      data-type="HORIZONTAL"
+                      data-vanity="dhanrajpatil1220"
+                      data-version="v1"
+                    >
+                      <a
+                        className="badge-base__link LI-simple-link"
+                        href="https://in.linkedin.com/in/dhanrajpatil1220?trk=profile-badge"
+                        aria-label="Visit Dhanraj Patil's LinkedIn profile"
+                      ></a>
+                    </div>
+                  </HoverCardContent>
+                )}
+              </HoverCard>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      )}
+    </>
   );
 };
 
